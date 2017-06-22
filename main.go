@@ -24,6 +24,11 @@ var userAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML,
 
 func do_login(client *http.Client) {
 	Logger.Println("Detecting...")
+	jar, err := cookiejar.New(nil)
+	if err != nil {
+		Logger.Println(err)
+	}
+	client.Jar = jar
 	req, err := http.NewRequest("GET", "http://10.10.1.96/eportal/InterFace.do?method=getOnlineUserInfo", strings.NewReader(""))
 	if err != nil {
 		Logger.Println(err)
